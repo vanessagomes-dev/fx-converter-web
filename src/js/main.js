@@ -9,6 +9,7 @@ const amount = document.getElementById("amount");
 const currency = document.getElementById("currency");
 const footer = document.querySelector("main footer");
 const description = document.getElementById("description");
+const result = document.getElementById("result");
 
 //Manipulando o input amount para receber somente números
 amount.addEventListener("input", () => {
@@ -38,6 +39,18 @@ function convertCurrency(amount, price, symbol) {
   try {
     // Exibindo a cotação da moeda selecionada
     description.textContent = `${symbol} 1 = ${formatCurrencyBRL(price)}`;
+
+    // Calcula e exibe o total
+    let total = amount * price;
+
+    // Verifica se o resultado não é um número
+    if (isNaN(total)) {
+      return alert("Por favor, digite o valor válido para converter.");
+    }
+
+    // Formata o valor total
+    total = formatCurrencyBRL(total).replace("R$", "");
+    result.textContent = `${total} Reais`;
 
     //Aplica a classe que exibe o footer mostrando o resultado
     footer.classList.add("show-result");
